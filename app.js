@@ -565,6 +565,13 @@ function closeTemplateBuilder() {
 function addExerciseToTemplateBuilder(exerciseName) {
   const trimmedName = exerciseName.trim();
   if (!trimmedName) {
+    alert("Exercise name cannot be empty.");
+    return;
+  }
+
+  // Check for duplicate exercise names
+  if (state.templateBuilder.exercises.some(ex => ex.name === trimmedName)) {
+    alert("This exercise is already added to the template.");
     return;
   }
 
@@ -591,30 +598,35 @@ function reorderTemplateExercises(fromIndex, toIndex) {
 function saveTemplateFromBuilder() {
   const { name, description, exercises, editingTemplateId } = state.templateBuilder;
 
-  if (!name.trim() || exercises.length === 0) {
-    alert("Please enter a template name and add at least one exercise.");
+  if (!name.trim()) {
+    alert("Please enter a template name.");
+    return;
+  }
+
+  if (exercises.length === 0) {
+    alert("Please add at least one exercise to the template.");
     return;
   }
 
   console.log("[Template] Saving template:", { name, exercises: exercises.length });
 
   const result = editingTemplateId
-    ? templates.updateTemplate({ name, description, exercises })
-    : templates.createTemplate({ name, description, exercises });
+    ? templates.updateTemplate(editingTemplateId, { name, description, exercises })
+    : templates.createTemplate(name, description, exercises);
 
   if (!result) {
     console.error("Failed to save template. Validation or save error occurred.");
-    alert("Failed to save template. Please check your input.");
+    alert("Failed to save template. Please check your input and ensure all exercises are valid.");
     return;
   }
 
   // Proceed with UI updates only if save is successful
   state.templates = templates.getAllTemplates();
   console.log("[Template] Updated state.templates, count:", state.templates.length);
-  
+
   // Switch to templates view to show the newly created template
   state.currentView = "templates";
-  
+
   closeTemplateBuilder();
 }
 
