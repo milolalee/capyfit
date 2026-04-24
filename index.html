@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Tracker Dashboard</title>
+  <meta name="description" content="Track workouts, log sets, and review progress in a lightweight strength dashboard.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+<div id="app">
+  <header id="app-shell" class="app-shell">
+    <section id="app-nav" class="app-nav"></section>
+  </header>
+  <div class="dashboard">
+    <div id="dashboard-view" class="app-view">
+      <section id="dashboard-overview" class="dashboard-overview"></section>
+      <section id="kpi-section" class="kpi-section"></section>
+      <section id="analytics-section" class="analytics-section"></section>
+      <section id="history-section" class="history-section"></section>
+    </div>
+    <div id="workout-view" class="app-view">
+      <section id="workout-section" class="workout-section"></section>
+    </div>
+    <div id="templates-view" class="app-view" hidden>
+      <section id="templates-section" class="templates-section"></section>
+    </div>
+  </div>
+</div>
+
+<!-- Template Builder Modal -->
+<div id="template-builder" class="modal-container" hidden></div>
+
+<!-- Template Selector Modal -->
+<div id="template-selector" class="modal-container" hidden></div>
+
+  <script src="templates.js"></script>
+  <script src="analyticsEngine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
